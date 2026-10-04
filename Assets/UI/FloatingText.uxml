@@ -1,4 +1,4 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Label text="0" name="Time" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; justify-content: center; align-self: center; align-content: center; position: absolute; top: 50%;"/>
-    <ui:Label text="Label" name="Score" style="-unity-text-align: upper-center; top: 20%; color: rgb(197, 160, 57);"/>
+    <ui:Label text="Label" name="Score" class="score-floating" style="-unity-text-align: upper-center; top: auto; color: rgb(197, 160, 57); position: relative; left: auto; right: auto; bottom: auto;"/>
 </ui:UXML>

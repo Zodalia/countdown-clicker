@@ -141,3 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16c195a1c04d824fb2aa3ff4fc24028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickDetector
+  pulseScale: 0.1

@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,8 +10,9 @@ public class TimerManager: MonoBehaviour
 {
     private struct Timer
     {
-        public GameObject obj;
+        public TimerObject obj;
         public float endTime;
+        public int secondsLeft;
     }
 
     public AnimationCurve spawnTimeCurve;
@@ -51,17 +51,18 @@ public class TimerManager: MonoBehaviour
 
     private void CalculateNextSpawnTime()
     {
-        nextSpawnTime = Time.time + Math.Max(minSpawnTime, spawnTimeCurve.Evaluate(Time.time - startTime) + Random.Range(-spawnTimeVariance, spawnTimeVariance));
+        nextSpawnTime = Mathf.Floor(Time.time + Math.Max(minSpawnTime, spawnTimeCurve.Evaluate(Time.time - startTime) + Random.Range(-spawnTimeVariance, spawnTimeVariance)));
     }
 
     private void Spawn()
     {
         Timer timer = new()
         {
-            obj = Instantiate(prefab),
-            endTime = Time.time + 10f
+            obj = Instantiate(prefab).GetComponent<TimerObject>(),
+            endTime = Time.time + 10f,
+            secondsLeft = 9
         };
-        timer.obj.GetComponent<TimerObject>().SetCallback(delegate(){OnClick(timer);});
+        timer.obj.SetCallback(delegate(){OnClick(timer);});
 
         var objSize = timer.obj.GetComponent<SpriteRenderer>().size;
         var halfHeight = objSize.y * 0.5f;
@@ -72,9 +73,9 @@ public class TimerManager: MonoBehaviour
 
     void OnClick(Timer timer)
     {
-        ScoreTracker.Instance.Score(timer.obj.transform.position, timer.endTime - Time.time);
-        Destroy(timer.obj);
-        timers.Remove(timer);
+        ScoreTracker.Instance.AddScore(timer.obj.transform.position, timer.endTime - Time.time);
+        timers.Remove(timers.First(x => x.obj == timer.obj));
+        Destroy(timer.obj.gameObject);
     }
 
     void Update()
@@ -90,11 +91,22 @@ public class TimerManager: MonoBehaviour
             CalculateNextSpawnTime();
         }
 
-        foreach(Timer timer in timers)
+        for(int i = 0; i < timers.Count; i++)
         {
+            var timer = timers[i];
             if(timer.endTime <= Time.time)
             {
                 gameManager.EndGame();
+                return;
+            }
+
+            var remainingTime = (int)(timer.endTime - Time.time);
+            if(remainingTime != timer.secondsLeft)
+            {
+                timer.obj.Pulse();
+
+                timer.secondsLeft = remainingTime;
+                timers[i] = timer;
             }
         }
     }
