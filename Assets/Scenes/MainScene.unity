@@ -176,9 +176,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: -0.38329238
     width: 1
-    height: 1
+    height: 1.7690418
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1365868330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585cb18c4564c5e478ec09f5fb5a9c38, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b79f94ecb2e3bb499967c882f9690a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
 --- !u!1 &1702343952

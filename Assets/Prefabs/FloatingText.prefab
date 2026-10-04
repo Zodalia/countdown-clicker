@@ -65,9 +65,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2867950260058065612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2550d4eaa571849a5bdb0c12273a33, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f1443656fc040744b84cbaaa899259f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingScore
-  scale: 1.2
-  animTime: 1
-  yOffset: 50
+  scale: 2
+  animTime: 0.5
+  yOffset: 2
